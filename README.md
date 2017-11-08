@@ -1,10 +1,5 @@
-# Swagger Service
+# Dyno
 
-[![David](https://david-dm.org/slate-studio/swagger-service.svg)](https://david-dm.org/slate-studio/swagger-service)
+Node microservice library.
 
-## Update Dependencies
-
-```bash
-$ npm i -g david
-$ david update
-```
+[![David](https://david-dm.org/slate-studio/dyno.svg)](https://david-dm.org/slate-studio/dyno)

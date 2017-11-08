@@ -1,14 +1,13 @@
 {
-  "name": "service",
-  "description": "Swagger based node microservice",
+  "name": "dyno",
+  "description": "Node microservice library",
   "tags": [
     "node",
-    "swagger",
+    "oas",
     "mongodb",
-    "rabbitmq",
     "redis"
   ],
-  "version": "2.1.3",
+  "version": "0.8.0",
   "author": "Alexander Kravets <alex@slatestudio.com>",
   "contributors": [
     {
@@ -30,10 +29,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "http://github.com/slate-studio/swagger-service.git"
+    "url": "http://github.com/slate-studio/dyno.git"
   },
   "bugs": {
-    "url": "http://github.com/slate-studio/swagger-service/issues"
+    "url": "http://github.com/slate-studio/dyno/issues"
   },
   "engines": [
     "node >= 8.0"
