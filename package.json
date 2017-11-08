@@ -1,5 +1,5 @@
 {
-  "name": "dyno",
+  "name": "@slatestudio/dyno",
   "description": "Node microservice library",
   "tags": [
     "node",
