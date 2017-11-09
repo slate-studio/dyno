@@ -1,5 +1,5 @@
 'use strict'
 
-require('./db')
-require('./msg')
+// require('./db')
+// require('./msg')
 require('./requestNamespace')
