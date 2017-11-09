@@ -5,5 +5,6 @@ module.exports = {
   db:    require('./lib/db'),
   log:   require('./lib/log'),
   msg:   require('./lib/msg'),
-  utils: require('./src/utils')
+  utils: require('./src/utils'),
+  RequestNamespace: require('./lib/requestNamespace')
 }

@@ -1,5 +1,7 @@
 'use strict'
 
+const _ = require('lodash')
+
 const Http5xx = require('./http5xx')
 
 class Http500 extends Http5xx {

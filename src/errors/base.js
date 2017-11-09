@@ -1,5 +1,7 @@
 'use strict'
 
+const _ = require('lodash')
+
 class Base extends Error {
   constructor(message) {
     super(message)

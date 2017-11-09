@@ -1,5 +1,7 @@
 'use strict'
 
+const _ = require('lodash')
+
 const Base = require('./../base')
 
 class Http extends Base {

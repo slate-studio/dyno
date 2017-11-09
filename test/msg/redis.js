@@ -62,14 +62,12 @@ describe('Redis', () => {
 
   it('should listen to queue', done => {
     const handlers = {
-      'demoQueue1': (msg, next) => {
+      'demoQueue1': async msg => {
         expect(msg.object.demo).to.equal('data')
-        next()
         setTimeout(done, 500)
       },
-      'demoQueue2': (msg, next) => {
+      'demoQueue2': async msg => {
         log.debug('MSG', msg)
-        next()
       }
     }
 

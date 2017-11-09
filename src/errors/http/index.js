@@ -1,5 +1,7 @@
 'use strict'
 
+const _ = require('lodash')
+
 const errors = [
   'http',
   'http4xx',

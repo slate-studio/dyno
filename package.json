@@ -73,7 +73,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "istanbul": "^0.4.5",
+    "istanbul": "git+https://github.com/slate-studio/istanbul.git",
     "mocha": "^4.0.0"
   },
   "license": "ISC",
