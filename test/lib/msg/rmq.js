@@ -1,9 +1,9 @@
 'use strict'
 
 const amqp   = require('amqplib')
-const logger = require('../../lib/log')
-const msg    = require('../../lib/msg')
-const RequestNamespace = require('../../lib/requestNamespace')
+const logger = require('../../../lib/log')
+const msg    = require('../../../lib/msg')
+const RequestNamespace = require('../../../lib/requestNamespace')
 
 const config = {
   rabbitmq: { uri: 'amqp://rabbitmq:rabbitmq@127.0.0.1:5672' },

@@ -1,6 +1,6 @@
 'use strict'
 
-const neverDelete = require('../../../../lib/db/mongodb/plugins/neverDelete')
+const neverDelete = require('../../../../../lib/db/mongodb/plugins/neverDelete')
 
 describe('neverDelete', () => {
 

@@ -1,9 +1,9 @@
 'use strict'
 
-const logger = require('../../lib/log')
-const redis  = require('../../lib/db/redis')
-const msg    = require('../../lib/msg')
-const RequestNamespace = require('../../lib/requestNamespace')
+const logger = require('../../../lib/log')
+const redis  = require('../../../lib/db/redis')
+const msg    = require('../../../lib/msg')
+const RequestNamespace = require('../../../lib/requestNamespace')
 
 const config = {
   redis: { host: '127.0.0.1', port: 6379 },

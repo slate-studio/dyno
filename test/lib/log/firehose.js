@@ -1,6 +1,6 @@
 'use strict'
 
-const logger = require('../../lib/log')
+const logger = require('../../../lib/log')
 const config = {
   log: {
     level: 'debug',

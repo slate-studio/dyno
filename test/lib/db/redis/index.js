@@ -1,7 +1,7 @@
 'use strict'
 
-const logger = require('../../../lib/log')
-const redis  = require('../../../lib/db/redis')
+const logger = require('../../../../lib/log')
+const redis  = require('../../../../lib/db/redis')
 
 describe('Redis:', () => {
 

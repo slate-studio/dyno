@@ -1,7 +1,7 @@
 'use strict'
 
-const neverDelete  = require('../../../../lib/db/mongodb/plugins/neverDelete')
-const exportPlugin = require('../../../../lib/db/mongodb/plugins/export')
+const neverDelete  = require('../../../../../lib/db/mongodb/plugins/neverDelete')
+const exportPlugin = require('../../../../../lib/db/mongodb/plugins/export')
 
 describe('export', () => {
 

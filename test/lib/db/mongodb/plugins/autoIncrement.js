@@ -1,6 +1,6 @@
 'use strict'
 
-const autoIncrement = require('../../../../lib/db/mongodb/plugins/autoIncrement')
+const autoIncrement = require('../../../../../lib/db/mongodb/plugins/autoIncrement')
 
 describe('autoIncrement', () => {
 
