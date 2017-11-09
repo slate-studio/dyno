@@ -1,4 +1,3 @@
 'use strict'
 
-require('./db')
-require('./msg')
+require('./lib')
