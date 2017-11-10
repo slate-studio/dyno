@@ -7,7 +7,7 @@
     "mongodb",
     "redis"
   ],
-  "version": "0.8.1",
+  "version": "0.8.2",
   "author": "Alexander Kravets <alex@slatestudio.com>",
   "contributors": [
     {
@@ -54,8 +54,8 @@
     "bunyan-firehose": "git+https://github.com/slate-studio/bunyan-firehose.git#v0.0.5",
     "bunyan-logstash": "^0.3.4",
     "cls-bluebird": "^2.0.1",
+    "cls-hooked": "^4.2.2",
     "config": "^1.27.0",
-    "continuation-local-storage": "^3.2.0",
     "cors": "^2.8.3",
     "database-cleaner": "^1.2.0",
     "express": "^4.16.2",

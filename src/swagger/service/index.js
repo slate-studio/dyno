@@ -1,9 +1,9 @@
 'use strict'
 
 const _ = require('lodash')
-
-const cls           = require('continuation-local-storage')
-const namespace     = cls.getNamespace('requestNamespace')
+const RequestNamespace = require('../../../lib/requestNamespace')
+// const cls           = require('continuation-local-storage')
+// const namespace     = cls.getNamespace('requestNamespace')
 const nock          = require('nock')
 const SwaggerClient = require('swagger-client')
 const mock          = require('./mock')
@@ -24,6 +24,7 @@ const request = (...args) => {
   const reject      = args[4]
 
   const addRequestHeaders = req => {
+    const namespace = new RequestNamespace()
     const authenticationToken = namespace.get('authenticationToken')
     const requestId           = namespace.get('requestId')
 

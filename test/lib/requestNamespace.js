@@ -1,15 +1,23 @@
 'use strict'
 
-const EventEmitter = require('events')
+const EventEmitter     = require('events')
 const RequestNamespace = require('../../lib/requestNamespace')
 
 describe('RequestNamespace', () => {
 
+  it('should getAll empty namespace from local storage', done => {
+    const requestNamespace = new RequestNamespace()
+    const namespace = requestNamespace.getAll()
+
+    expect(namespace).to.be.empty
+    done()
+  })
+
   it('should save namespace to local storage', done => {
     const emitter = new EventEmitter()
     const namespace = {
-      field1: 'value1',
-      field2: 'value2'
+      field1: 'value11',
+      field2: 'value22'
     }
 
     const test = () => {
@@ -93,15 +101,6 @@ describe('RequestNamespace', () => {
     requestNamespace.save([], () => {
       test()
     })
-  })
-
-
-  it('should getAll empty namespace from local storage', done => {
-    const requestNamespace = new RequestNamespace()
-    const namespace = requestNamespace.getAll()
-
-    expect(namespace).to.be.empty
-    done()
   })
 
   it('should set value to local namespace', done => {
