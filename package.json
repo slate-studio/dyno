@@ -49,6 +49,7 @@
     "agentkeepalive": "^3.3.0",
     "amqplib": "^0.5.1",
     "aws-sdk": "^2.141.0",
+    "body-parser": "^1.18.2",
     "bluebird": "^3.5.0",
     "bunyan": "^1.8.12",
     "bunyan-firehose": "git+https://github.com/slate-studio/bunyan-firehose.git#v0.0.5",

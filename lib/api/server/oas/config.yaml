@@ -19,7 +19,6 @@ swagger:
       - onError: json_error_handler
       - cors
       - swagger_params_parser
-      - requestNamespace
       - swagger_security
       - _swagger_validate
       - express_compatibility
