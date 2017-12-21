@@ -27,6 +27,7 @@ const request = (...args) => {
     const namespace = new RequestNamespace()
     const authenticationToken = namespace.get('authenticationToken')
     const requestId           = namespace.get('requestId')
+    const originalOperationId = namespace.get('originalOperationId')
 
     if (authenticationToken) {
       req.headers['x-authentication-token'] = authenticationToken
@@ -34,6 +35,10 @@ const request = (...args) => {
 
     if (requestId) {
       req.headers['x-request-id'] = requestId
+    }
+
+    if (requestId) {
+      req.headers['x-original-operation-id'] = originalOperationId
     }
 
     req.serviceName = service.name
