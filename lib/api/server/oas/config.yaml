@@ -23,4 +23,5 @@ swagger:
       - _swagger_validate
       - express_compatibility
       - requestParameters
+      - sourceOperationId
       - _router
