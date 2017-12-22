@@ -111,7 +111,7 @@ class Service extends EventEmitter {
     })
 
     if (IS_TEST_ENVIRONMENT) {
-      this.mock = mock(spec)
+      mock(this.name, spec)
     }
 
   }
