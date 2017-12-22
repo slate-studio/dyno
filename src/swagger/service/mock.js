@@ -1,12 +1,30 @@
 'use strict'
 
-const _ = require('lodash')
-
-const SwaggerClient = require('swagger-client')
+const _             = require('lodash')
+const fs            = require('fs')
+const yaml          = require('js-yaml')
 const faker         = require('faker')
 const nock          = require('nock')
+const SwaggerClient = require('swagger-client')
 
-const services = {}
+const services      = {}
+const dependencies  = {}
+
+const rootPath      = process.cwd()
+const yamlPath      = `${rootPath}/src/api/swagger.yaml`
+const yml           = fs.readFileSync(yamlPath, 'utf8')
+const spec          = yaml.safeLoad(yml)
+
+if (spec.paths) {
+  _.forEach(spec.paths, methods => {
+    _.forEach(methods, operation => {
+      if (operation.operationId) {
+        const dependency = operation['x-dependency-operation-ids'] || []
+        dependencies[operation.operationId] = dependency
+      }
+    })
+  })
+}
 
 const HTTP_SUCCESS_RESPONSES = {
   200: 'OK',
@@ -19,21 +37,26 @@ const HTTP_SUCCESS_RESPONSES = {
 }
 
 class Mock {
-  construct(baseOperationId) {
+  constructor(baseOperationId) {
     this.baseOperationId = baseOperationId
+    const serviceSpec    = require(`${rootPath}/src/api/swagger.json`)
+    this.baseOperationDependencies = serviceSpec.path
   }
 
-  setMock(operationId, params, response = {}) {
+  setMock(destination, params, response = {}) {
     // TODO: buildRequest requires all required parameters to be present, that
     //       means for update request we need to specify empty {} body param.
 
-    console.log(`SET MOCK - ${this.baseOperationId}: ${operationId}`)
+    const [serviceName, operationId] = destination.split('.')
+    const spec = services[serviceName]
 
-    const [serviceName, operationId] = operationId.split('.')
-    const spec    = services[serviceName]
     if (!spec) {
       log.debug(`Service '${serviceName}' doesn't exists`)
       return
+    }
+
+    if (!_.includes(dependencies[this.baseOperationId], operationId)) {
+      log.debug(`OPERATION_ID '${operationId}'  DOESN'T EXISTS IN THE '${this.baseOperationId}' DEPENDENCIES `)
     }
 
     const host    = `http://${spec.host}`
