@@ -53,7 +53,7 @@ class Mock {
       return
     }
 
-    if (!_.includes(dependencies[this.baseOperationId], operationId)) {
+    if (this.baseOperationId && !_.includes(dependencies[this.baseOperationId], operationId)) {
       log.debug(`OPERATION_ID '${operationId}'  DOESN'T EXISTS IN THE '${this.baseOperationId}' DEPENDENCIES `)
     }
 
