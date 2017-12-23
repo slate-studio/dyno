@@ -39,8 +39,6 @@ const HTTP_SUCCESS_RESPONSES = {
 class Mock {
   constructor(baseOperationId) {
     this.baseOperationId = baseOperationId
-    const serviceSpec    = require(`${rootPath}/src/api/swagger.json`)
-    this.baseOperationDependencies = serviceSpec.path
   }
 
   setMock(destination, params, response = {}) {
