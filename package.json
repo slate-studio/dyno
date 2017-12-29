@@ -7,7 +7,7 @@
     "mongodb",
     "redis"
   ],
-  "version": "0.13.1",
+  "version": "0.13.2",
   "author": "Alexander Kravets <alex@slatestudio.com>",
   "contributors": [
     {
