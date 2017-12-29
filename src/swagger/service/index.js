@@ -57,15 +57,12 @@ const request = (...args) => {
       // // TODO: Limit number of retries.
       // if (isConnectionError(errCode)) {
       //   const timeout = requestTimeout()
-
       //   log.error(`Services.${service.name}.${operationId}`, parameters, errCode)
       //   log.info(`Retry Service.${service.name}.${operationId} in ${timeout}s`)
-
       //   return setTimeout(() => { request(...args) }, timeout * 1000)
-
       // }
+      // log.error(err)
 
-      log.error(err)
       reject(err)
     })
 }
