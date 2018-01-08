@@ -54,7 +54,8 @@ class Mock {
     }
 
     if (this.baseOperationId && !_.includes(dependencies[this.baseOperationId], operationId)) {
-      log.debug(`OPERATION_ID '${operationId}'  DOESN'T EXISTS IN THE '${this.baseOperationId}' DEPENDENCIES `)
+      const message = `OPERATION_ID '${operationId}'  DOESN'T EXISTS IN THE '${this.baseOperationId}' DEPENDENCIES`
+      throw new Error(message)
     }
 
     const host    = `http://${spec.host}`
