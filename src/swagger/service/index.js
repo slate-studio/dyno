@@ -1,14 +1,13 @@
 'use strict'
 
 const _ = require('lodash')
+
 const RequestNamespace = require('../../../lib/requestNamespace')
-// const cls           = require('continuation-local-storage')
-// const namespace     = cls.getNamespace('requestNamespace')
-const nock          = require('nock')
-const SwaggerClient = require('swagger-client')
-const mock          = require('./mock')
-const EventEmitter  = require('events')
-const http          = require('./request/http')
+const nock             = require('nock')
+const SwaggerClient    = require('swagger-client')
+const mock             = require('./mock')
+const EventEmitter     = require('events')
+const http             = require('./request/http')
 
 const IS_TEST_ENVIRONMENT = [ 'test', 'gitlab' ].indexOf(process.env.NODE_ENV) > -1
 const CONNECTION_ERRORS   = [ 'ECONNRESET', 'EPIPE', 'ETIMEDOUT', 'ECONNREFUSED' ]
@@ -24,9 +23,10 @@ const request = (...args) => {
   const reject      = args[4]
 
   const addRequestHeaders = req => {
-    const namespace = new RequestNamespace()
-    const authenticationToken = namespace.get('authenticationToken')
-    const requestId           = namespace.get('requestId')
+    const requestNamespace    = new RequestNamespace()
+    const authenticationToken = requestNamespace.get('authenticationToken')
+    const requestId           = requestNamespace.get('requestId')
+    const sourceOperationId   = requestNamespace.get('sourceOperationId')
 
     if (authenticationToken) {
       req.headers['x-authentication-token'] = authenticationToken
@@ -34,6 +34,10 @@ const request = (...args) => {
 
     if (requestId) {
       req.headers['x-request-id'] = requestId
+    }
+
+    if (sourceOperationId) {
+      req.headers['x-original-operation-id'] = sourceOperationId
     }
 
     req.serviceName = service.name
@@ -103,7 +107,7 @@ class Service extends EventEmitter {
     })
 
     if (IS_TEST_ENVIRONMENT) {
-      this.mock = mock(spec)
+      mock(this.name, spec)
     }
 
   }
