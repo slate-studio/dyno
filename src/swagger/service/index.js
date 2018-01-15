@@ -37,7 +37,7 @@ const request = (...args) => {
     }
 
     if (sourceOperationId) {
-      req.headers['x-original-operation-id'] = sourceOperationId
+      req.headers['x-source-operation-id'] = sourceOperationId
     }
 
     req.serviceName = service.name
