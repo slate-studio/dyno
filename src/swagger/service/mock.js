@@ -1,29 +1,33 @@
 'use strict'
 
-const _             = require('lodash')
-const fs            = require('fs')
-const yaml          = require('js-yaml')
-const faker         = require('faker')
-const nock          = require('nock')
+const _     = require('lodash')
+const fs    = require('fs')
+const yaml  = require('js-yaml')
+const faker = require('faker')
+const nock  = require('nock')
 const SwaggerClient = require('swagger-client')
 
-const services      = {}
-const dependencies  = {}
 
-const rootPath      = process.cwd()
-const yamlPath      = `${rootPath}/src/api/swagger.yaml`
-const yml           = fs.readFileSync(yamlPath, 'utf8')
-const spec          = yaml.safeLoad(yml)
+const services     = {}
+const dependencies = {}
 
-if (spec.paths) {
-  _.forEach(spec.paths, methods => {
-    _.forEach(methods, operation => {
-      if (operation.operationId) {
-        const dependency = operation['x-dependency-operation-ids'] || []
-        dependencies[operation.operationId] = dependency
-      }
+const rootPath = process.cwd()
+const yamlPath = `${rootPath}/src/api/swagger.yaml`
+
+if (fs.existsSync(yamlPath)) {
+  const yml  = fs.readFileSync(yamlPath, 'utf8')
+  const spec = yaml.safeLoad(yml)
+
+  if (spec.paths) {
+    _.forEach(spec.paths, methods => {
+      _.forEach(methods, operation => {
+        if (operation.operationId) {
+          const dependency = operation['x-dependency-operation-ids'] || []
+          dependencies[operation.operationId] = dependency
+        }
+      })
     })
-  })
+  }
 }
 
 const HTTP_SUCCESS_RESPONSES = {
