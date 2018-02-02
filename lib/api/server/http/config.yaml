@@ -7,7 +7,7 @@ swagger:
   # (see https://github.com/apigee-127/bagpipes)
   bagpipes:
     _router:
-      name: swagger_router
+      name: ../middleware/router
       mockMode: false
       mockControllersDirs: [ src/mocks ]
       controllersDirs: [ src/api ]
@@ -19,9 +19,9 @@ swagger:
       - onError: json_error_handler
       - cors
       - swagger_params_parser
-      - sourceOperationId
+      - ../middleware/sourceOperationId
       - swagger_security
       - _swagger_validate
       - express_compatibility
-      - requestParameters
+      - ../middleware/requestParameters
       - _router
