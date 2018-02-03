@@ -7,7 +7,7 @@
     "mongodb",
     "redis"
   ],
-  "version": "0.16.1",
+  "version": "0.16.2",
   "author": "Alexander Kravets <alex@slatestudio.com>",
   "contributors": [
     {
@@ -34,9 +34,9 @@
   "bugs": {
     "url": "http://github.com/slate-studio/dyno/issues"
   },
-  "engines": [
-    "node >= 8.0"
-  ],
+  "engines": {
+    "node": "~8.9"
+  },
   "main": "./index",
   "bin": {
     "compose": "./lib/api/server/oas/bin/compose.js",
