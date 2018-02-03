@@ -10,7 +10,7 @@ const log = require('./lib/log')
 const msg = require('./lib/msg')
 const {request, pluralize, buildAuthenticationToken} = require('./src/utils')
 const RequestNamespace = require('./lib/requestNamespace')
-const getRequestNamespace = RequestNamespace.getRequestNamespace
+const {getRequestNamespace} = require('./lib/requestNamespace')
 module.exports = {
   api:   {
     server,
