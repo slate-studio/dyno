@@ -9,7 +9,7 @@ const mongodb = require('./lib/db/mongodb')
 const log = require('./lib/log')
 const msg = require('./lib/msg')
 const {request, pluralize, buildAuthenticationToken} = require('./src/utils')
-const RequestNamespace = require('./lib/RequestNamespace')
+const RequestNamespace = require('./lib/requestNamespace')
 
 module.exports = {
   api:   {
