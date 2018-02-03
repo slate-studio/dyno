@@ -1,18 +1,34 @@
 'use strict'
 
-const {Server, server, errors, client, actions} = require('./lib/api')
-const {redis, mongodb, mongodbStaff, redisStaff} = require('./lib/db')
+const server = require('./lib/api/server')
+const {Base, Create, Delete, Export, Index, Read, Update} = require('./lib/api/actions')
+const {DocumentNotFoundError, NotFoundError, TransactionError} = require('./lib/api/errors')
+const client = require('./src/swagger/client')
+const redis = require('./lib/db/redis')
+const mongodb = require('./lib/db/mongodb')
 const log = require('./lib/log')
-const {ConnectMsg} = require('./lib/msg')
-const utils = require('./src/utils')
+const msg = require('./lib/msg')
+const {request, pluralize, buildAuthenticationToken} = require('./src/utils')
 const RequestNamespace = require('./lib/RequestNamespace')
 
 module.exports = {
-  api:      {Server, server, errors, client, actions},
-  db:       {redis, mongodb, mongodbStaff, redisStaff},
+  api:   {
+    server,
+    errors:  {DocumentNotFoundError, NotFoundError, TransactionError},
+    client,
+    actions: {
+      Base,
+      Create,
+      Delete,
+      Export,
+      Index,
+      Read,
+      Update
+    }
+  },
+  db:    {redis, mongodb},
   log,
-  msg:      require('./lib/msg'),
-  msgStaff: {ConnectMsg},
-  utils,
+  msg,
+  utils: {request, pluralize, buildAuthenticationToken},
   RequestNamespace
 }
