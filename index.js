@@ -9,11 +9,11 @@ const mongodb = require('./lib/db/mongodb')
 const log = require('./lib/log')
 const msg = require('./lib/msg')
 const {request, pluralize, buildAuthenticationToken} = require('./src/utils')
-const RequestNamespace = require('./lib/requestNamespace')
-const {getRequestNamespace} = require('./lib/requestNamespace')
-module.exports = {
+const {getRequestNamespace, RequestNamespace} = require('./lib/requestNamespace')
+
+server.module.exports = {
   api:   {
-    server,
+    server:  server.default,
     errors:  {DocumentNotFoundError, NotFoundError, TransactionError},
     client,
     actions: {
