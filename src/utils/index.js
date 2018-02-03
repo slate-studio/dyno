@@ -1,6 +1,6 @@
 'use strict'
 
-exports = module.exports = {
+module.exports = {
   pluralize:                require('./pluralize'),
   request:                  require('./request'),
   // RequestNamespace:         require('./requestNamespace'),
