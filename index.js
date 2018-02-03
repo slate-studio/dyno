@@ -11,7 +11,7 @@ const msg = require('./lib/msg')
 const {request, pluralize, buildAuthenticationToken} = require('./src/utils')
 const {getRequestNamespace, RequestNamespace} = require('./lib/requestNamespace')
 
-server.module.exports = {
+module.exports = {
   api:   {
     server:  server.default,
     errors:  {DocumentNotFoundError, NotFoundError, TransactionError},
