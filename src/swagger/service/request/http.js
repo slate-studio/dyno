@@ -17,24 +17,16 @@ const agent = new keepAliveAgent(_.assign(defaultAgentSettings, {}))
 // _.get(C, 'swagger-client.keepAliveAgentSettings', {})
 // )
 
-const errorsMap = [ 400, 401, 403, 404, 422, 423, 500, 502 ]
-
-const getHttpError = (statusCode, error) => {
-  const message = _.get(error, 'message', null)
-  const stack   = _.get(error, 'stack', null)
-
-  let errorName = statusCode
-  if (errorsMap.indexOf(statusCode) === -1) {
-    errorName = `${String(statusCode)[0]}xx`
+const extendError = (error, statusCode, request) => {
+  if (_.isEmpty(error)) {
+    error = new Error()
   }
-  errorName = `http${errorName}`
 
-  const HttpError = require(`./../../../errors/http/${errorName}`)
-  const httpError = new HttpError(message, statusCode)
-  if (stack) {
-    httpError.stack = stack
-  }
-  return httpError
+  error.statusCode  = statusCode
+  error.serviceName = request.serviceName
+  error.operationId = request.operationId
+
+  return error
 }
 
 module.exports = request => {
@@ -69,15 +61,7 @@ module.exports = request => {
           const statusCode = parseInt(response.statusCode)
 
           if (statusCode >= 400) {
-            const httpError = getHttpError(statusCode, obj)
-            httpError.setServiceName(request.serviceName)
-            httpError.setOperationId(request.operationId)
-
-            if (_.has(obj, 'errors')) {
-              httpError.setErrors(obj.errors)
-            }
-
-            throw httpError
+            throw extendError(obj, statusCode, request)
           }
 
           resolve({
