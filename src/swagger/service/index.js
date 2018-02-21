@@ -87,7 +87,7 @@ class Service extends EventEmitter {
       log.info(`Services.${name}.${operationId}`, params)
 
       return new Promise((resolve, reject) => {
-        request(this.client, operationId, params, resolve, reject)
+        request(this, operationId, params, resolve, reject)
       })
     }
 
