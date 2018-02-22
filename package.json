@@ -58,6 +58,7 @@
     "cls-hooked": "^4.2.2",
     "config": "^1.27.0",
     "connect-timeout": "^1.9.0",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
     "database-cleaner": "^1.2.0",
     "express": "^4.16.2",
