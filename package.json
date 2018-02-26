@@ -39,7 +39,7 @@
   ],
   "main": "./index",
   "bin": {
-    "compose": "./lib/api/server/oas/bin/compose.js",
+    "compose": "./lib/api/server/http/bin/compose.js",
     "drop": "./lib/db/mongodb/bin/drop.js",
     "updateServices": "./bin/updateServices.js",
     "resetListener": "./bin/resetListener.js"
