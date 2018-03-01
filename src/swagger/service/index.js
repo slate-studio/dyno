@@ -22,14 +22,16 @@ const request = (...args) => {
   const resolve     = args[3]
   const reject      = args[4]
 
-  const addRequestHeaders = req => {
+  const requestInterceptor = req => {
     const requestNamespace    = new RequestNamespace()
     const authenticationToken = requestNamespace.get('authenticationToken')
+    const facilityScope       = requestNamespace.get('facilityScope')
     const requestId           = requestNamespace.get('requestId')
     const sourceOperationId   = requestNamespace.get('sourceOperationId')
 
     if (authenticationToken) {
       req.headers['authorization'] = authenticationToken
+      req.headers['scope']         = facilityScope
     }
 
     if (requestId) {
@@ -46,12 +48,7 @@ const request = (...args) => {
     return req
   }
 
-  const params = {
-    http:               http,
-    operationId:        operationId,
-    parameters:         parameters,
-    requestInterceptor: addRequestHeaders
-  }
+  const params = { http, operationId, parameters, requestInterceptor }
 
   service.client.execute(params)
     .then(resolve)
