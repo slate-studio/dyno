@@ -40,9 +40,7 @@
   "main": "./index",
   "bin": {
     "compose": "./lib/api/server/oas/bin/compose.js",
-    "drop": "./lib/db/mongodb/bin/drop.js",
-    "updateServices": "./bin/updateServices.js",
-    "resetListener": "./bin/resetListener.js"
+    "drop": "./lib/db/mongodb/bin/drop.js"
   },
   "dependencies": {
     "@astronomer/bunyan-udp": "^2.0.0",
