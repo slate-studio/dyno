@@ -57,7 +57,6 @@
     "cls-bluebird": "^2.0.1",
     "cls-hooked": "^4.2.2",
     "config": "^1.27.0",
-    "connect-timeout": "^1.9.0",
     "cors": "^2.8.3",
     "database-cleaner": "^1.2.0",
     "express": "^4.16.2",
