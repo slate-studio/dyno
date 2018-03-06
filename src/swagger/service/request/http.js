@@ -59,7 +59,7 @@ module.exports = request => {
             obj = JSON.parse(result)
           
           } catch (e) {
-            log.error(err, { result, request })
+            log.error(e, { result, request })
             reject(e)
 
           }
