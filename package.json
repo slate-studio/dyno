@@ -70,7 +70,8 @@
     "response-time": "^2.3.2",
     "statuses": "^1.4.0",
     "swagger-client": "^3.3.1",
-    "swagger-express-mw": "^0.7.0"
+    "swagger-express-mw": "^0.7.0",
+    "nodecredstash": "^2.0.1"
   },
   "devDependencies": {
     "chai": "^4.1.2",
