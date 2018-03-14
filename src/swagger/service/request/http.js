@@ -50,33 +50,35 @@ module.exports = request => {
         result += chunk
       })
 
-      response.on('end', () => {
-        try {
-          let obj
+      response.on('end', () => {   
+        let obj
 
-          if (result) {
+        if (result) {
+          try {
             obj = JSON.parse(result)
+          } catch (e) {
+            log.error(e, { result, request })
+            reject(e)
+            return
           }
-
-          const statusCode = parseInt(response.statusCode)
-
-          if (statusCode >= 400) {
-            throw extendError(obj, statusCode, request)
-          }
-
-          resolve({
-            statusCode: response.statusCode,
-            statusText: response.statusMessage,
-            headers:    response.headers,
-            obj:        obj,
-            body:       obj,
-            text:       result
-          })
-
-        } catch (e) {
-          reject(e)
-
         }
+
+        const statusCode = parseInt(response.statusCode)
+
+        if (statusCode >= 400) {
+          const error = extendError(obj, statusCode, request)
+          reject(error)
+          return
+        }
+
+        resolve({
+          statusCode: response.statusCode,
+          statusText: response.statusMessage,
+          headers:    response.headers,
+          obj:        obj,
+          body:       obj,
+          text:       result
+        })
       })
     })
 
