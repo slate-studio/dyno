@@ -5,5 +5,6 @@ module.exports = {
   db:               require('./lib/db'),
   log:              require('./lib/log'),
   jsonRequest:      require('./lib/jsonRequest'),
+  RequestError:     require('./lib/requestError'),
   RequestNamespace: require('./lib/requestNamespace')
 }
