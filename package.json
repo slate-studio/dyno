@@ -52,6 +52,7 @@
     "bunyan": "^1.8.12",
     "bunyan-firehose": "git+https://github.com/slate-studio/bunyan-firehose.git#v0.0.5",
     "bunyan-logstash": "^0.3.4",
+    "chai": "^4.1.2",
     "cls-bluebird": "^2.0.1",
     "cls-hooked": "^4.2.2",
     "config": "^1.27.0",
@@ -60,7 +61,6 @@
     "database-cleaner": "^1.2.0",
     "express": "^4.16.2",
     "express-useragent": "^1.0.12",
-    "faker": "^4.1.0",
     "helmet": "^3.12.0",
     "json2csv": "^3.11.5",
     "lodash": "^4.17.4",
@@ -76,7 +76,6 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
     "istanbul": "git+https://github.com/slate-studio/istanbul.git",
     "mocha": "^4.0.0"
   },
