@@ -8,7 +8,7 @@ describe('Mongodb:', () => {
 
   describe('Plugins:', () => {
 
-    before(() => mongoose.connect(uri, { useMongoClient: true }))
+    before(() => mongoose.connect(uri))
 
     require('./plugins/autoIncrement')
     require('./plugins/export')

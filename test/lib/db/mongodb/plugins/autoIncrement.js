@@ -11,7 +11,7 @@ describe('autoIncrement', () => {
     })
   })
 
-  it('should increment the integerId field on save', done => {
+  it('should increment the integerId field on save', async() => {
     const userSchema = new mongoose.Schema({
       name: String,
       dept: String
@@ -26,15 +26,20 @@ describe('autoIncrement', () => {
     const user1 = new User({ name: 'Charlie', dept: 'Support' })
     const user2 = new User({ name: 'Charlene', dept: 'Marketing' })
 
-    Promise.resolve()
-      .then(() => user1.save())
-      .then(() => user1.should.have.property('integerId', 1))
-      .then(() => user2.save())
-      .then(() => user2.should.have.property('integerId', 2))
-      .then(() => done())
+    await user1.save()
+    user1.should.have.property('_integerId', 1)
+    await user2.save()
+    user2.should.have.property('_integerId', 2)
+
+    const userSchema2 = new mongoose.Schema({
+      name: String,
+      dept: String
+    })
+
+    userSchema2.plugin(autoIncrement, { model: 'User', mongoose })
   })
 
-  it('should increment the specified field instead', done => {
+  it('should increment the specified field instead', async() => {
     const userSchema = new mongoose.Schema({
       name: String,
       dept: String
@@ -46,15 +51,13 @@ describe('autoIncrement', () => {
     const user1 = new User({ name: 'Charlie', dept: 'Support' })
     const user2 = new User({ name: 'Charlene', dept: 'Marketing' })
 
-    Promise.resolve()
-      .then(() => user1.save())
-      .then(() => user1.should.have.property('userId', 1))
-      .then(() => user2.save())
-      .then(() => user2.should.have.property('userId', 2))
-      .then(() => done())
+    await user1.save()
+    user1.should.have.property('userId', 1)
+    await user2.save()
+    user2.should.have.property('userId', 2)
   })
 
-  it('should start counting at specified number', done => {
+  it('should start counting at specified number', async() => {
     const userSchema = new mongoose.Schema({
       name: String,
       dept: String
@@ -66,15 +69,13 @@ describe('autoIncrement', () => {
     const user1 = new User({ name: 'Charlie', dept: 'Support' })
     const user2 = new User({ name: 'Charlene', dept: 'Marketing' })
 
-    Promise.resolve()
-      .then(() => user1.save())
-      .then(() => user1.should.have.property('integerId', 3))
-      .then(() => user2.save())
-      .then(() => user2.should.have.property('integerId', 4))
-      .then(() => done())
+    await user1.save()
+    user1.should.have.property('_integerId', 3)
+    await user2.save()
+    user2.should.have.property('_integerId', 4)
   })
 
-  it('should increment by the specified amount', done => {
+  it('should increment by the specified amount', async() => {
     const userSchema = new mongoose.Schema({
       name: String,
       dept: String
@@ -86,15 +87,13 @@ describe('autoIncrement', () => {
     const user1 = new User({ name: 'Charlie', dept: 'Support' })
     const user2 = new User({ name: 'Charlene', dept: 'Marketing' })
 
-    Promise.resolve()
-      .then(() => user1.save())
-      .then(() => user1.should.have.property('integerId', 1))
-      .then(() => user2.save())
-      .then(() => user2.should.have.property('integerId', 6))
-      .then(() => done())
+    await user1.save()
+    user1.should.have.property('_integerId', 1)
+    await user2.save()
+    user2.should.have.property('_integerId', 6)
   })
 
-  it('should not allow to update integerId', done => {
+  it('should not allow to update integerId', async() => {
     const userSchema = new mongoose.Schema({
       name: String,
       dept: String
@@ -105,25 +104,24 @@ describe('autoIncrement', () => {
     const User = mongoose.model('User', userSchema)
     const user1 = new User({ name: 'Charlie', dept: 'Support' })
 
-    Promise.resolve()
-      .then(() => user1.save())
-      .then(() => user1.should.have.property('integerId', 1))
-      .then(() => {
-        user1.name = 'Alexander Kravets'
-        return user1.save()
-      })
-      .then(user => user.name.should.equal('Alexander Kravets'))
-      .then(() => {
-        user1.integerId = 2
-        return user1.save()
-      })
-      .catch(error => {
-        expect(error.name).to.equal('UpdateAutoIncrementFieldValueError')
-        done()
-      })
+    await user1.save()
+    user1.should.have.property('_integerId', 1)
+
+    user1.name = 'Alexander Kravets'
+    const user = await user1.save()
+    user.name.should.equal('Alexander Kravets')
+
+    user1._integerId = 2
+    try {
+      await user1.save()
+
+    } catch (error) {
+      expect(error.name).to.equal('UpdateAutoIncrementFieldValueError')
+
+    }
   })
 
-  it('should raise exception if auto increment value is not integer', done => {
+  it('should raise exception if auto increment value is not integer', async() => {
     const userSchema = new mongoose.Schema({
       name: String,
       dept: String
@@ -132,23 +130,24 @@ describe('autoIncrement', () => {
     userSchema.plugin(autoIncrement, { model: 'User', mongoose })
 
     const User  = mongoose.model('User', userSchema)
-    const user1 = new User({ name: 'Charlie', dept: 'Support', 'integerId': 1.2 })
-    const user2 = new User({ name: 'Charlie', dept: 'Support', 'integerId': 3 })
+    const user1 = new User({ name: 'Charlie', dept: 'Support', '_integerId': 1.2 })
+    const user2 = new User({ name: 'Charlie', dept: 'Support', '_integerId': 3 })
 
-    Promise.resolve()
-      .then(() => user1.save())
-      .then(() => user1.should.have.property('integerId', 1))
-      .catch(error => {
-        expect(error.name).to.equal('BadAutoIncrementFieldValueError')
-      })
-      .then(() => user2.save())
-      .then(() => user2.should.have.property('integerId', 3))
-      .then(() => done())
+    try {
+      await user1.save()
+
+    } catch (error) {
+      expect(error.name).to.equal('BadAutoIncrementFieldValueError')
+
+    }
+
+    await user2.save()
+    user2.should.have.property('_integerId', 3)
   })
 
   describe('Model.nextCount', () => {
 
-    it('should return the next count for the model', done => {
+    it('should return the next count for the model', async() => {
       const userSchema = new mongoose.Schema({
         name: String,
         dept: String
@@ -160,25 +159,30 @@ describe('autoIncrement', () => {
       const user1 = new User({ name: 'Charlie', dept: 'Support' })
       const user2 = new User({ name: 'Charlene', dept: 'Marketing' })
 
-      Promise.resolve()
-        .then(() => User.nextCount())
-        .then(count => count.should.equal(1))
-        .then(() => user1.save())
-        .then(user1 => user1.should.have.property('integerId', 1))
-        .then(() => User.nextCount())
-        .then(count => count.should.equal(2))
-        .then(() => user2.save())
-        .then(user1 => user2.should.have.property('integerId', 2))
-        .then(() => User.nextCount())
-        .then(count => count.should.equal(3))
-        .then(() => done())
+      let count
+      let user
+
+      count = await User.nextCount()
+      count.should.equal(1)
+
+      user = await user1.save()
+      user.should.have.property('_integerId', 1)
+
+      count = await User.nextCount()
+      count.should.equal(2)
+
+      user = await user2.save()
+      user2.should.have.property('_integerId', 2)
+
+      count = await User.nextCount()
+      count.should.equal(3)
     })
 
   })
 
   describe('Model.resetCount', () => {
 
-    it('should set count to initial value', done => {
+    it('should set count to initial value', async() => {
       const userSchema = new mongoose.Schema({
         name: String,
         dept: String
@@ -189,23 +193,27 @@ describe('autoIncrement', () => {
       const User = mongoose.model('User', userSchema)
       const user = new User({name: 'Charlie', dept: 'Support'})
 
-      Promise.resolve()
-        .then(() => user.save())
-        .then(() => user.should.have.property('integerId', 1))
-        .then(() => user.nextCount())
-        .then(count => count.should.equal(2))
-        .then(() => user.resetCount())
-        .then(resetCount => resetCount.should.equal(1))
-        .then(() => user.nextCount())
-        .then(count => count.should.equal(1))
-        .then(() => done())
+      let count
+      let resetCount
+
+      await user.save()
+      user.should.have.property('_integerId', 1)
+
+      count = await user.nextCount()
+      count.should.equal(2)
+
+      resetCount = await user.resetCount()
+      resetCount.should.equal(1)
+
+      count = await user.nextCount()
+      count.should.equal(1)
     })
 
   })
 
   describe('Model.setCount', () => {
 
-    it('should set count to specified value', done => {
+    it('should set count to specified value', async() => {
       const userSchema = new mongoose.Schema({
         name: String,
         dept: String
@@ -216,14 +224,16 @@ describe('autoIncrement', () => {
       const User = mongoose.model('User', userSchema)
       const user = new User({ name: 'Charlie', dept: 'Support' })
 
-      Promise.resolve()
-        .then(() => User.setCount(5))
-        .then(count => count.should.equal(5))
-        .then(() => user.nextCount())
-        .then(count => count.should.equal(6))
-        .then(() => user.save())
-        .then(() => user.should.have.property('integerId', 6))
-        .then(() => done())
+      let count
+
+      count = await User.setCount(5)
+      count.should.equal(5)
+
+      count = await user.nextCount()
+      count.should.equal(6)
+
+      await user.save()
+      user.should.have.property('_integerId', 6)
     })
 
   })
