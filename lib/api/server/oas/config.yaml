@@ -19,7 +19,7 @@ swagger:
       - onError: json_error_handler
       - swagger_params_parser
       - sourceOperationId
-      - swagger_security
+      - swaggerSecurity
       - tokenPayload
       - _swagger_validate
       - express_compatibility
