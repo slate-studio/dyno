@@ -13,6 +13,7 @@ describe('Mongodb:', () => {
     require('./plugins/autoIncrement')
     require('./plugins/export')
     require('./plugins/neverDelete')
+    require('./plugins/orderable')
     require('./plugins/simulateUnhandledError')
   })
 
