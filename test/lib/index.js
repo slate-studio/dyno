@@ -2,4 +2,3 @@
 
 require('./requestNamespace')
 require('./db')
-require('./msg')
