@@ -47,4 +47,24 @@ describe('orderable', () => {
       .then(() => done())
   })
 
+  it('should return position 1010 for new element, if element dont have position field', done => {
+    const userSchema = new mongoose.Schema({
+      name: String,
+      dept: String
+    })
+
+    userSchema.plugin(orderable, { fieldName: 'position' })
+
+    const User  = mongoose.model('User', userSchema)
+    const user1 = new User({ name: 'Michael', dept: 'Support' })
+
+    Promise.resolve()
+      .then(() => {
+        return User.collection.insert({ name: 'Old User', dept: 'Old dep' })
+      })
+      .then(() => user1.save())
+      .then(() => user1.should.have.property('position', 1010))
+      .then(() => done())
+  })
+
 })
