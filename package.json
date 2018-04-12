@@ -7,7 +7,7 @@
     "mongodb",
     "redis"
   ],
-  "version": "0.19.18",
+  "version": "0.19.19",
   "author": "Alexander Kravets <alex@slatestudio.com>",
   "contributors": [
     {
@@ -50,7 +50,7 @@
     "bluebird": "^3.5.0",
     "body-parser": "^1.18.2",
     "bunyan": "^1.8.12",
-    "bunyan-firehose": "git+https://github.com/slate-studio/bunyan-firehose.git#v0.0.5",
+    "bunyan-firehose": "git+https://github.com/Eli-Goldberg/bunyan-firehose.git",
     "bunyan-logstash": "^0.3.4",
     "chai": "^4.1.2",
     "cls-bluebird": "^2.0.1",
